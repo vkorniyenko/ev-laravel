@@ -2,6 +2,36 @@
 @extends('layouts.app') <!--Наследуем layouts/app.blade.php -->
 @section('content')
 <!-- Bootstrap шаблон... -->
+  @if (count($tasks) > 0)
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Текущая задача
+      </div>
+      <div class="panel-body">
+        <table class="table table-striped task-table">
+          <!-- Заголовок таблицы -->
+          <thead>
+            <th>Task</th>
+            <th>&nbsp;</th>
+          </thead>
+          <!-- Тело таблицы -->
+          <tbody>
+            @foreach ($tasks as $task)
+              <tr>
+                <!-- Имя задачи -->
+                <td class="table-text">
+                  <div>{{ $task->name }}</div>
+                </td>
+                <td>
+                  <!-- TODO: Кнопка Удалить -->
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+   @endif
 <div class="panel-body">
     <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
@@ -25,5 +55,4 @@
 	</div>
     </form>
 </div>
-<!-- TODO: Текущие задачи -->
 @endsection
