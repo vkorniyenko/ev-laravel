@@ -2,36 +2,43 @@
 @extends('layouts.app') <!--Наследуем layouts/app.blade.php -->
 @section('content')
 <!-- Bootstrap шаблон... -->
-  @if (count($tasks) > 0)
-    <div class="panel panel-default">
-      <div class="panel-heading">
+@if (count($tasks) > 0)
+<div class="panel panel-default">
+    <div class="panel-heading">
         Текущая задача
-      </div>
-      <div class="panel-body">
+    </div>
+    <div class="panel-body">
         <table class="table table-striped task-table">
-          <!-- Заголовок таблицы -->
-          <thead>
+	    <!-- Заголовок таблицы -->
+	    <thead>
             <th>Task</th>
             <th>&nbsp;</th>
-          </thead>
-          <!-- Тело таблицы -->
-          <tbody>
-            @foreach ($tasks as $task)
-              <tr>
-                <!-- Имя задачи -->
-                <td class="table-text">
-                  <div>{{ $task->name }}</div>
-                </td>
-                <td>
-                  <!-- TODO: Кнопка Удалить -->
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
+	    </thead>
+	    <!-- Тело таблицы -->
+	    <tbody>
+		@foreach ($tasks as $task)
+		<tr>
+		    <!-- Имя задачи -->
+		    <td class="table-text">
+			<div>{{ $task->name }}</div>
+		    </td>
+		    <td>
+			<form action="{{ url('task/'.$task->id) }}" method="POST">
+			    {{ csrf_field() }}
+			    {{ method_field('DELETE') }}
+
+			    <button type="submit" class="btn btn-danger">
+				<i class="fa fa-trash"></i> Удалить
+			    </button>
+			</form>
+		    </td>
+		</tr>
+		@endforeach
+	    </tbody>
         </table>
-      </div>
     </div>
-   @endif
+</div>
+@endif
 <div class="panel-body">
     <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
