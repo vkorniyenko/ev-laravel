@@ -28,6 +28,8 @@ Route::post('/task', function (Request $request) {
     }
     $task = new Task();
     $task->name = $request->name;
+    $task->price = $request->price;
+    $task->description = $request->description;
     $task->save();
     return redirect('/');
 });
